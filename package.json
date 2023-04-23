@@ -1,0 +1,19 @@
+{
+  "name": "api-login-token-sistem-jwt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirJov/API-Login-Token-Sistem-JWT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SirJov/API-Login-Token-Sistem-JWT/issues"
+  },
+  "homepage": "https://github.com/SirJov/API-Login-Token-Sistem-JWT#readme"
+}
