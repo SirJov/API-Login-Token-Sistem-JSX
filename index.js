@@ -1,12 +1,14 @@
 const express = require("express");
 const Cors = require("cors");
+const loginController = require("./src/controller/loginController.js");
+
 require("dotenv").config();
 const app = express();
 
 app.use(express.json());
 app.use(Cors());
 
-module.exports = app;
+app.use("/login", loginController);
 
 const port = process.env.porta || 3030;
 
