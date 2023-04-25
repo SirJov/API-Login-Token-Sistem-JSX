@@ -2,8 +2,12 @@ const express = require("express");
 const Cors = require("cors");
 const loginController = require("./src/controller/loginController.js");
 
+const conn = require("./src/DB/conn.js");
+
 require("dotenv").config();
 const app = express();
+
+conn();
 
 app.use(express.json());
 app.use(Cors());
