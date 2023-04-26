@@ -27,7 +27,14 @@ class UserHandler {
 
   async updateUser(req) {}
 
-  async deleteUser(req) {}
+  async deleteUser(req) {
+    try {
+      const user = await UserModel.deleteOne({ email: req.params.email });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async fetchUsers() {
     try {
@@ -41,7 +48,7 @@ class UserHandler {
 
   async fetchSpecificUsers(req) {
     try {
-      const user = await UserModel.findOne({ email: req });
+      const user = await UserModel.findOne({ email: req.params.email });
       if (user) {
         return user;
       } else {

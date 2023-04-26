@@ -13,6 +13,16 @@ router.post("/userRegister", async (req, res) => {
   }
 });
 
+router.delete("/deleteUser/:email", async (req, res) => {
+  try {
+    const user = await handler.deleteUser(req);
+    if (user) return res.status(201).send(user);
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
+
 router.get("/getAll", async (req, res) => {
   try {
     const user = await handler.fetchUsers();
@@ -25,9 +35,7 @@ router.get("/getAll", async (req, res) => {
 
 router.get("/getId/:email", async (req, res) => {
   try {
-    const email = req.params.email;
-    console.log(email);
-    const user = await handler.fetchSpecificUsers(email);
+    const user = await handler.fetchSpecificUsers(req);
 
     if (user) {
       return res.status(200).send(user);
