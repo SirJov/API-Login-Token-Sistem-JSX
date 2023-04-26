@@ -11,9 +11,15 @@ class UserHandler {
         password: req.body.password,
       };
 
-      await UserModel.create(userbody);
+      const user = await UserModel.findOne({ email: req.body.email });
 
-      return { msg: "usuario criado com sucesso" };
+      if (user) {
+        return { msg: "usuario ja existe!!" };
+      } else {
+        await UserModel.create(userbody);
+
+        return { msg: "usuario criado com sucesso" };
+      }
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +39,18 @@ class UserHandler {
     }
   }
 
-  async fetchSpecificUsers(req) {}
+  async fetchSpecificUsers(req) {
+    try {
+      const user = await UserModel.findOne({ email: req });
+      if (user) {
+        return user;
+      } else {
+        return { msg: "nenhum usuario encontrado!!" };
+      }
+    } catch (error) {
+      return console.log(error);
+    }
+  }
 }
 
 module.exports = UserHandler;

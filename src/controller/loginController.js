@@ -23,4 +23,19 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
+router.get("/getId/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    console.log(email);
+    const user = await handler.fetchSpecificUsers(email);
+
+    if (user) {
+      return res.status(200).send(user);
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
+
 module.exports = router;
