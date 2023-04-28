@@ -14,11 +14,11 @@ class UserHandler {
       const user = await UserModel.findOne({ email: req.body.email });
 
       if (user) {
-        return { msg: "usuario ja existe!!" };
+        return { msg: "Usuario ja existe!!" };
       } else {
         await UserModel.create(userbody);
 
-        return { msg: "usuario criado com sucesso" };
+        return { msg: "Usuario criado com sucesso" };
       }
     } catch (error) {
       console.log(error);
@@ -30,6 +30,12 @@ class UserHandler {
   async deleteUser(req) {
     try {
       const user = await UserModel.deleteOne({ email: req.params.email });
+      if (user.deletedCount == 1) {
+        return { msg: "Usuario deletado com sucesso!" };
+      }
+      if (user.deletedCount == 0) {
+        return { msg: "Usuario nao encontrado!" };
+      }
       return user;
     } catch (error) {
       console.log(error);
