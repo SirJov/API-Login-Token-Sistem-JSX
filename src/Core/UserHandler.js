@@ -1,14 +1,17 @@
 const { User: UserModel } = require("../model/UserModel");
+const bcrypt = require("bcryptjs");
 
 class UserHandler {
   constructor() {}
 
   async registerUser(req) {
     try {
+      const password = await bcrypt.hash(req.body.password, 9);
+
       const userbody = {
         user: req.body.user,
         email: req.body.email,
-        password: req.body.password,
+        password: password,
       };
 
       const user = await UserModel.findOne({ email: req.body.email });

@@ -1,6 +1,7 @@
 const express = require("express");
 const Cors = require("cors");
 const loginController = require("./src/controller/loginController.js");
+const userController = require("./src/controller/userController.js");
 
 const conn = require("./src/DB/conn.js");
 
@@ -12,7 +13,8 @@ conn();
 app.use(express.json());
 app.use(Cors());
 
-app.use("/login", loginController);
+app.use("/", loginController);
+app.use("/", userController);
 
 const port = process.env.porta || 3030;
 
