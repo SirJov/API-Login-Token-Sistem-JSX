@@ -4,6 +4,24 @@ const bcrypt = require("bcryptjs");
 class UserHandler {
   constructor() {}
 
+  async UserLogin(req) {
+    try {
+      const user = await UserModel.findOne({ email: req.body.email });
+      const verifyPassword = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
+
+      if (verifyPassword == true) {
+        return { msg: "usuario logado" };
+      } else {
+        return { msg: "dados incorretos" };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async registerUser(req) {
     try {
       const password = await bcrypt.hash(req.body.password, 9);
@@ -11,7 +29,8 @@ class UserHandler {
       const userbody = {
         user: req.body.user,
         email: req.body.email,
-        password: password,
+        password: req.body.password,
+        passwordCryptografed: password,
       };
 
       const user = await UserModel.findOne({ email: req.body.email });

@@ -1,7 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const UserHandler = require("../Core/UserHandler");
+const UserHandler = require("../Core/UserHandler.js");
 const handler = new UserHandler();
+
+router.post("/UserLogin", async (req, res) => {
+  try {
+    const login = await handler.UserLogin(req);
+    return res.status(200).send(login);
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
 
 router.post("/RegisterUser", async (req, res) => {
   try {
