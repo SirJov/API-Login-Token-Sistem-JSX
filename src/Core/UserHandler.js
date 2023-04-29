@@ -7,15 +7,20 @@ class UserHandler {
   async UserLogin(req) {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
+
+      if (user == null) {
+        return { msg: "dados incorretos!" };
+      }
+
       const verifyPassword = await bcrypt.compare(
         req.body.password,
-        user.password
+        user.passwordCryptografed
       );
 
       if (verifyPassword == true) {
-        return { msg: "usuario logado" };
+        return { msg: "usuario logado!" };
       } else {
-        return { msg: "dados incorretos" };
+        return { msg: "dados incorretos!" };
       }
     } catch (error) {
       console.log(error);
