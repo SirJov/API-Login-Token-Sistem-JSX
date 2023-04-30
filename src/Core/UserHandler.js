@@ -1,5 +1,13 @@
 const { User: UserModel } = require("../model/UserModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+function generateAccessToken(email) {
+  return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
+    expiresIn: 1300,
+  });
+}
 
 class UserHandler {
   constructor() {}
@@ -18,7 +26,9 @@ class UserHandler {
       );
 
       if (verifyPassword == true) {
-        return { msg: "usuario logado!" };
+        const token = generateAccessToken(req.body.email);
+
+        return { msg: "usuario logado!", token: token };
       } else {
         return { msg: "dados incorretos!" };
       }
