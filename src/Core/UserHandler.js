@@ -44,7 +44,6 @@ class UserHandler {
       const userbody = {
         user: req.body.user,
         email: req.body.email,
-        password: req.body.password,
         passwordCryptografed: password,
       };
 
