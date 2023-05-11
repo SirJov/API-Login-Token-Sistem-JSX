@@ -1,2 +1,4 @@
 porta=
 my_host =
+my_password=
+TOKEN_SECRET=
