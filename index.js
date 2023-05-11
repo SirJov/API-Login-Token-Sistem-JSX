@@ -15,6 +15,6 @@ app.use(Cors());
 
 app.use("/", userController);
 
-const port = process.env.porta || 3030;
+const port = process.env.porta || 3232;
 
 app.listen(port, () => console.log("SERVER OPEN PORT " + port));
