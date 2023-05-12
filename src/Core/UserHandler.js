@@ -24,7 +24,7 @@ class UserHandler {
         updatedAt: user.updatedAt,
       };
 
-      if (user == null) {
+      if (user.email == null) {
         return { msg: "Dados incorretos!!" };
       }
 
