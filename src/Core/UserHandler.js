@@ -14,8 +14,12 @@ class UserHandler {
 
   async UserLogin(req) {
     try {
-      const user = await UserModel.findOne({ email: req.body.email }).exec();
+      const user = await UserModel.findOne({ email: req.body.email });
 
+
+      if (user === null) {
+        return { msg: "Dados incorretos!!" };
+      }
       const dataUser = {
         id: user._id,
         user: user.user,
@@ -23,11 +27,6 @@ class UserHandler {
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       };
-
-      if (user.email == null) {
-        return { msg: "Dados incorretos!!" };
-      }
-
       const verifyPassword = await bcrypt.compare(
         req.body.password,
         user.passwordCryptografed
