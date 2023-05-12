@@ -43,9 +43,10 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
-router.get("/getId/:email", async (req, res) => {
+router.post("/getId", async (req, res) => {
   try {
     const user = await handler.fetchSpecificUsers(req);
+    console.log(req);
 
     if (user) {
       return res.status(200).send(user);

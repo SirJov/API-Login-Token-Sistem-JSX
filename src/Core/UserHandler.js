@@ -90,7 +90,7 @@ class UserHandler {
 
   async fetchSpecificUsers(req) {
     try {
-      const user = await UserModel.findOne({ email: req.params.email });
+      const user = await UserModel.findOne({ email: req.body.email });
       if (user) {
         return user;
       } else {
