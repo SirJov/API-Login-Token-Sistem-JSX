@@ -92,7 +92,14 @@ class UserHandler {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
       if (user) {
-        return user;
+        const dataUser = {
+          id: user._id,
+          user: user.user,
+          email: user.email,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        };
+        return dataUser;
       } else {
         return { msg: "nenhum usuario encontrado!!" };
       }
