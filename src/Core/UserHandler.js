@@ -62,7 +62,7 @@ class UserHandler {
       } else {
         await UserModel.create(userbody);
 
-        return { msg: "Usuario criado com sucesso" };
+        return [{ msg: "Usuario criado com sucesso" }, user];
       }
     } catch (error) {
       console.log(error);
