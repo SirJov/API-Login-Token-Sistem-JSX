@@ -43,7 +43,7 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
-router.post("/getId", async (req, res) => {
+router.post("/getUser", async (req, res) => {
   try {
     const user = await handler.fetchSpecificUsers(req);
     console.log(req);
