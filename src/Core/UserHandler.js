@@ -61,8 +61,9 @@ class UserHandler {
         return { msg: "Usuario ja existe!!" };
       } else {
         await UserModel.create(userbody);
+        const userData = await UserModel.findOne({ email: req.body.email });
 
-        return [{ msg: "Usuario criado com sucesso" }, user];
+        return [{ msg: "Usuario criado com sucesso" }, userData];
       }
     } catch (error) {
       console.log(error);
