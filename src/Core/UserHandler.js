@@ -14,7 +14,7 @@ class UserHandler {
 
   async UserLogin(req) {
     try {
-      const user = await UserModel.findOne({ email: req.body.email });
+      const user = await UserModel.findOne({ email: req.body.email }).exec();
 
       const dataUser = {
         id: user._id,
