@@ -48,7 +48,7 @@ class UserHandler {
   async registerUser(req) {
     try {
       const password = await bcrypt.hash(req.body.password, 9);
-
+      const token = generateAccessToken(req.body.email);
       const userbody = {
         user: req.body.user,
         email: req.body.email,
@@ -71,7 +71,7 @@ class UserHandler {
           updatedAt: userData.updatedAt,
         };
 
-        return [{ msg: "Usuario criado com sucesso" }, dataUser];
+        return [{ msg: "Usuario criado com sucesso", token: token }, dataUser];
       }
     } catch (error) {
       console.log(error);
