@@ -16,8 +16,16 @@ class UserHandler {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
 
+      const dataUser = {
+        id: user._id,
+        user: user.user,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      };
+
       if (user == null) {
-        return { msg: "dados incorretos!" };
+        return { msg: "Dados incorretos!!" };
       }
 
       const verifyPassword = await bcrypt.compare(
@@ -28,7 +36,7 @@ class UserHandler {
       if (verifyPassword == true) {
         const token = generateAccessToken(req.body.email);
 
-        return { msg: "usuario logado!", token: token };
+        return [{ msg: "usuario logado!", token: token }, dataUser];
       } else {
         return { msg: "dados incorretos!" };
       }
@@ -99,7 +107,8 @@ class UserHandler {
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         };
-        return dataUser;
+        console.log(dataUser);
+        return;
       } else {
         return { msg: "nenhum usuario encontrado!!" };
       }
