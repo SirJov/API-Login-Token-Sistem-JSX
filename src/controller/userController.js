@@ -46,8 +46,19 @@ router.get("/getAll", async (req, res) => {
 router.post("/getUser", async (req, res) => {
   try {
     const user = await handler.fetchSpecificUsers(req);
-    console.log(req);
 
+    if (user) {
+      return res.status(200).send(user);
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
+
+router.put("/PutUser", async (req, res) => {
+  try {
+    const user = await handler.updateUserProfile(req);
     if (user) {
       return res.status(200).send(user);
     }

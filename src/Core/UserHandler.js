@@ -59,9 +59,7 @@ class UserHandler {
       if (user) {
         return { msg: "Usuario ja existe!!" };
       } else {
-        await UserModel.create(userbody);
-
-        const userData = await UserModel.findOne({ email: req.body.email });
+        const userData = await UserModel.create(userbody);
 
         const dataUser = {
           id: userData._id,
@@ -79,7 +77,26 @@ class UserHandler {
     }
   }
 
-  async updateUser(req) {}
+  async updateUserProfile(req) {
+    try {
+      const user = await UserModel.findOneAndUpdate(
+        { email: req.body.email },
+        { user: req.body.user, imgProfile: req.body.imgProfile },
+        { new: true }
+      );
+      const dataUser = {
+        id: user._id,
+        user: user.user,
+        email: user.email,
+        imgProfile: user.imgProfile,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      };
+      return [{ msg: "Usuario atualizado com sucesso" }, dataUser];
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async deleteUser(req) {
     try {
