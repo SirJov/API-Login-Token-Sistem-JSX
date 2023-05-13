@@ -16,7 +16,6 @@ class UserHandler {
     try {
       const user = await UserModel.findOne({ email: req.body.email });
 
-
       if (user === null) {
         return { msg: "Dados incorretos!!" };
       }
@@ -51,6 +50,7 @@ class UserHandler {
       const userbody = {
         user: req.body.user,
         email: req.body.email,
+        imgProfile: "user_default",
         passwordCryptografed: password,
       };
 
@@ -60,12 +60,14 @@ class UserHandler {
         return { msg: "Usuario ja existe!!" };
       } else {
         await UserModel.create(userbody);
+
         const userData = await UserModel.findOne({ email: req.body.email });
 
         const dataUser = {
           id: userData._id,
           user: userData.user,
           email: userData.email,
+          imgProfile: userData.imgProfile,
           createdAt: userData.createdAt,
           updatedAt: userData.updatedAt,
         };
