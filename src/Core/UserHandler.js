@@ -23,6 +23,7 @@ class UserHandler {
         id: user._id,
         user: user.user,
         email: user.email,
+        imgProfile: user.imgProfile,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       };
