@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const UserHandler = require("../Core/UserHandler.js");
 const handler = new UserHandler();
+const Middlewares = require("../middlewares/Middlewares.js");
 
 router.post("/UserLogin", async (req, res) => {
   try {
@@ -56,7 +57,7 @@ router.post("/getUser", async (req, res) => {
   }
 });
 
-router.put("/PutUser", async (req, res) => {
+router.put("/PutUser", Middlewares.CheckToken, async (req, res) => {
   try {
     const user = await handler.updateUserProfile(req);
     if (user) {
