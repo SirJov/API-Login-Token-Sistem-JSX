@@ -24,6 +24,14 @@ class FeedHandler {
       return console.log(error);
     }
   }
+
+  async CreateComment(req) {
+    try {
+      const CommentCreated = await FeedModel.findByIdAndUpdate();
+    } catch (error) {
+      return console.log(error);
+    }
+  }
 }
 
 module.exports = FeedHandler;
