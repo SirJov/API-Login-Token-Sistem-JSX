@@ -4,10 +4,20 @@ const FeedHandler = require("../Core/FeedHandler ");
 const handler = new FeedHandler();
 const Middlewares = require("../middlewares/Middlewares.js");
 
-router.get("/NewFeedPost", Middlewares.CheckToken, async (req, res) => {
+router.get("/FeedGet", async (req, res) => {
   try {
-    const Feed = await handler.fetchFeed(req);
+    const Feed = await handler.fetchFeed();
     return res.status(200).send(Feed);
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
+
+router.post("/CreateFeed", async (req, res) => {
+  try {
+    const newFeed = await handler.CreateFeed(req);
+    return res.status(200).send(newFeed);
   } catch (error) {
     console.log(JSON.stringify(error));
     return res.status(404).json(JSON.stringify(error));

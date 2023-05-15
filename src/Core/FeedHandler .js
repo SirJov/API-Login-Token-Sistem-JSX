@@ -8,9 +8,18 @@ class FeedHandler {
 
   async fetchFeed() {
     try {
-      const Feed = await FeedModel.find();
+      const Feedb = await FeedModel.find();
+      return Feedb;
+    } catch (error) {
+      return console.log(error + " AAAAAAAA");
+    }
+  }
 
-      return Feed;
+  async CreateFeed(req) {
+    try {
+      const Feed = await FeedModel.create(req.body);
+
+      return { msg: "Nova postagem criada com sucesso", obj: Feed };
     } catch (error) {
       return console.log(error);
     }

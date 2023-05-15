@@ -2,7 +2,7 @@ const express = require("express");
 const Cors = require("cors");
 
 const userController = require("./src/controller/userController.js");
-const FeedHandler = require("./src/controller/feedController.js");
+const feedHandler = require("./src/controller/feedController.js");
 
 const conn = require("./src/DB/conn.js");
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(Cors());
 
 app.use("/", userController);
-app.use("/", userController);
+app.use("/", feedHandler);
 
 const port = process.env.porta || 3232;
 
