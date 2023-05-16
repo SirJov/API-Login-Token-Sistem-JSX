@@ -3,7 +3,7 @@ require("dotenv").config();
 
 function CheckToken(req, res, next) {
   const reqHeader = req.headers["authorization"];
-  console.log(reqHeader);
+   console.log(reqHeader);
   const token = reqHeader && reqHeader.split(" ")[1];
   if (!token) {
     return res.status(401).send({ msg: "acesso negado!!" });
