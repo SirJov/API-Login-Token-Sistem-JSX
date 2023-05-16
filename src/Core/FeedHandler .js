@@ -17,9 +17,10 @@ class FeedHandler {
 
   async CreateFeed(req) {
     try {
-      const Feed = await FeedModel.create(req.body);
+      await FeedModel.create(req.body);
+      const Feedb = await FeedModel.find();
 
-      return { msg: "Nova postagem criada com sucesso", obj: Feed };
+      return [{ msg: "Nova postagem criada com sucesso" }, { obj: Feedb }];
     } catch (error) {
       return console.log(error);
     }
@@ -35,12 +36,13 @@ class FeedHandler {
         bodyComment: req.body.bodyComment,
       };
 
-      const CommentCreated = await FeedModel.updateOne(
+      await FeedModel.updateOne(
         { _id: req.body._id },
         { $push: { comments: [data] } }
       );
+      const Feedb = await FeedModel.find();
 
-      return CommentCreated;
+      return [{ msg: "Novo comentario criado com sucesso" }, { obj: Feedb }];
     } catch (error) {
       return console.log(error);
     }
@@ -48,9 +50,10 @@ class FeedHandler {
 
   async DeletePostedFeed(req) {
     try {
-      const response = await FeedModel.deleteOne({ _id: req.body._id });
+      await FeedModel.deleteOne({ _id: req.body._id });
+      const Feedb = await FeedModel.find();
 
-      return response;
+      return [{ msg: "Post deletado com sucesso" }, { obj: Feedb }];
     } catch (error) {
       console.log(error);
     }
@@ -58,12 +61,14 @@ class FeedHandler {
 
   async DeleteComment(req) {
     try {
-      const response = await FeedModel.findOneAndUpdate(
+      await FeedModel.findOneAndUpdate(
         { _id: req.body._idPost },
         { $pull: { comments: { _id: req.body._idComment } } }
       );
 
-      return response;
+      const Feedb = await FeedModel.find();
+
+      return [{ msg: "Comentario deletado com sucesso" }, { obj: Feedb }];
     } catch (error) {
       console.log(error);
     }
@@ -72,12 +77,14 @@ class FeedHandler {
   async LikedPostFeed(req) {
     try {
       const data = await FeedModel.findById({ _id: req.body._idPost });
+
       await FeedModel.findByIdAndUpdate(
         { _id: req.body._idPost },
         { likesNumber: data.likesNumber + 1 }
       );
+      const Feedb = await FeedModel.find();
 
-      return { msg: "Add Like " };
+      return [{ msg: "Liked!!!" }, { obj: Feedb }];
     } catch (error) {
       console.log(error);
     }
@@ -89,8 +96,9 @@ class FeedHandler {
         { _id: req.body._idPost },
         { likesNumber: data.likesNumber - 1 }
       );
+      const Feedb = await FeedModel.find();
 
-      return { msg: "Remove Like " };
+      return [{ msg: "Deslike!!!" }, { obj: Feedb }];
     } catch (error) {
       console.log(error);
     }
