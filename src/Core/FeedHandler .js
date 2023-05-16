@@ -27,9 +27,45 @@ class FeedHandler {
 
   async CreateComment(req) {
     try {
-      const CommentCreated = await FeedModel.findByIdAndUpdate();
+      const data = {
+        userAuthorComment: req.body.userAuthorComment,
+
+        imgAuthorComment: req.body.imgAuthorComment,
+
+        bodyComment: req.body.bodyComment,
+      };
+
+      const CommentCreated = await FeedModel.updateOne(
+        { _id: req.body._id },
+        { $push: { comments: [data] } }
+      );
+
+      return CommentCreated;
     } catch (error) {
       return console.log(error);
+    }
+  }
+
+  async DeletePostedFeed(req) {
+    try {
+      const response = await FeedModel.deleteOne({ _id: req.body._id });
+
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async DeleteComment(req) {
+    try {
+      const response = await FeedModel.findOneAndUpdate(
+        { _id: req.body._idPost },
+        { $pull: { comments: { _id: req.body._idComment } } }
+      );
+
+      return response;
+    } catch (error) {
+      console.log(error);
     }
   }
 }
