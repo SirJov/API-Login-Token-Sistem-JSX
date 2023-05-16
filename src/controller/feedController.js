@@ -6,7 +6,7 @@ const Middlewares = require("../middlewares/Middlewares.js");
 
 router.get("/FeedGet", Middlewares.CheckToken, async (req, res) => {
   try {
-    const Feed = await handler.fetchFeed();
+    const Feed = await handler.fetchFeed(req);
     return res.status(200).send(Feed);
   } catch (error) {
     console.log(JSON.stringify(error));

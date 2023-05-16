@@ -9,9 +9,9 @@ class FeedHandler {
   async fetchFeed() {
     try {
       const Feedb = await FeedModel.find();
-      return Feedb;
+      return [{ msg: "Get sucesso" }, { obj: Feedb }];
     } catch (error) {
-      return console.log(error + " AAAAAAAA");
+      return console.log(error);
     }
   }
 
