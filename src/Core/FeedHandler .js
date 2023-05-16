@@ -68,6 +68,33 @@ class FeedHandler {
       console.log(error);
     }
   }
+
+  async LikedPostFeed(req) {
+    try {
+      const data = await FeedModel.findById({ _id: req.body._idPost });
+      await FeedModel.findByIdAndUpdate(
+        { _id: req.body._idPost },
+        { likesNumber: data.likesNumber + 1 }
+      );
+
+      return { msg: "Add Like " };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async DesLikedPostFeed(req) {
+    try {
+      const data = await FeedModel.findById({ _id: req.body._idPost });
+      await FeedModel.findByIdAndUpdate(
+        { _id: req.body._idPost },
+        { likesNumber: data.likesNumber - 1 }
+      );
+
+      return { msg: "Remove Like " };
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = FeedHandler;

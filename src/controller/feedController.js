@@ -4,7 +4,7 @@ const FeedHandler = require("../Core/FeedHandler ");
 const handler = new FeedHandler();
 const Middlewares = require("../middlewares/Middlewares.js");
 
-router.get("/FeedGet", async (req, res) => {
+router.get("/FeedGet", Middlewares.CheckToken, async (req, res) => {
   try {
     const Feed = await handler.fetchFeed();
     return res.status(200).send(Feed);
@@ -14,7 +14,7 @@ router.get("/FeedGet", async (req, res) => {
   }
 });
 
-router.post("/CreateFeed", async (req, res) => {
+router.post("/CreateFeed", Middlewares.CheckToken, async (req, res) => {
   try {
     const newFeed = await handler.CreateFeed(req);
 
@@ -25,7 +25,7 @@ router.post("/CreateFeed", async (req, res) => {
   }
 });
 
-router.put("/CreateCommentFeed", async (req, res) => {
+router.put("/CreateCommentFeed", Middlewares.CheckToken, async (req, res) => {
   try {
     const commentFeed = await handler.CreateComment(req);
 
@@ -36,7 +36,7 @@ router.put("/CreateCommentFeed", async (req, res) => {
   }
 });
 
-router.delete("/DeletePostedFeed", async (req, res) => {
+router.delete("/DeletePostedFeed", Middlewares.CheckToken, async (req, res) => {
   try {
     const response = await handler.DeletePostedFeed(req);
 
@@ -47,9 +47,35 @@ router.delete("/DeletePostedFeed", async (req, res) => {
   }
 });
 
-router.delete("/DeleteCommentFeed", async (req, res) => {
+router.delete(
+  "/DeleteCommentFeed",
+  Middlewares.CheckToken,
+  async (req, res) => {
+    try {
+      const response = await handler.DeleteComment(req);
+
+      return res.status(200).send(response);
+    } catch (error) {
+      console.log(JSON.stringify(error));
+      return res.status(404).json(JSON.stringify(error));
+    }
+  }
+);
+
+router.put("/LikedPostFeed", Middlewares.CheckToken, async (req, res) => {
   try {
-    const response = await handler.DeleteComment(req);
+    const response = await handler.LikedPostFeed(req);
+
+    return res.status(200).send(response);
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    return res.status(404).json(JSON.stringify(error));
+  }
+});
+
+router.put("/DesLikedPostFeed", Middlewares.CheckToken, async (req, res) => {
+  try {
+    const response = await handler.DesLikedPostFeed(req);
 
     return res.status(200).send(response);
   } catch (error) {
