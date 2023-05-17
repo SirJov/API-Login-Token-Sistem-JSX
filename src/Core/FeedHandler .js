@@ -29,6 +29,8 @@ class FeedHandler {
   async CreateComment(req) {
     try {
       const data = {
+        _idAuthorComment:req.body._idAuthorComment,
+
         userAuthorComment: req.body.userAuthorComment,
 
         imgAuthorComment: req.body.imgAuthorComment,
