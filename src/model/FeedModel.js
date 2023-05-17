@@ -4,6 +4,10 @@ const { Schema } = mongoose;
 
 const feedSchema = new Schema(
   {
+    _idAuthor: {
+      type: String,
+      required: true,
+    },
     userAuthor: {
       type: String,
       required: true,
@@ -25,6 +29,8 @@ const feedSchema = new Schema(
 
     comments: [
       {
+        _idAuthor: String,
+
         userAuthorComment: String,
 
         imgAuthorComment: String,
