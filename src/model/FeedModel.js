@@ -29,7 +29,7 @@ const feedSchema = new Schema(
 
     comments: [
       {
-        _idAuthor: String,
+        _idAuthorComment: String,
 
         userAuthorComment: String,
 
