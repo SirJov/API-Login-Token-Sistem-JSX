@@ -29,7 +29,7 @@ class FeedHandler {
   async CreateComment(req) {
     try {
       const data = {
-        _idAuthorComment:req.body._idAuthorComment,
+        _idAuthorComment: req.body._idAuthorComment,
 
         userAuthorComment: req.body.userAuthorComment,
 
@@ -78,11 +78,9 @@ class FeedHandler {
 
   async LikedPostFeed(req) {
     try {
-      const data = await FeedModel.findById({ _id: req.body._idPost });
-
       await FeedModel.findByIdAndUpdate(
         { _id: req.body._idPost },
-        { likesNumber: data.likesNumber + 1 }
+        { $push: { likesNumber: req.body._idAuthorLikedt } }
       );
       const Feedb = await FeedModel.find();
 
@@ -91,12 +89,12 @@ class FeedHandler {
       console.log(error);
     }
   }
+
   async DesLikedPostFeed(req) {
     try {
-      const data = await FeedModel.findById({ _id: req.body._idPost });
       await FeedModel.findByIdAndUpdate(
         { _id: req.body._idPost },
-        { likesNumber: data.likesNumber - 1 }
+        { $pull: { likesNumber: req.body._idAuthorLikedt } }
       );
       const Feedb = await FeedModel.find();
 

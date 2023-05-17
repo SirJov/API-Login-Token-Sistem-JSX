@@ -22,10 +22,7 @@ const feedSchema = new Schema(
       required: true,
     },
 
-    likesNumber: {
-      type: Number,
-      required: true,
-    },
+    likesNumber: [String],
 
     comments: [
       {
