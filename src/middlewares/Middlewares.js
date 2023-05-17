@@ -3,7 +3,7 @@ require("dotenv").config();
 
 function CheckToken(req, res, next) {
   const reqHeader = req.headers["authorization"];
-   console.log(reqHeader);
+  console.log(reqHeader);
   const token = reqHeader && reqHeader.split(" ")[1];
   if (!token) {
     return res.status(401).send({ msg: "acesso negado!!" });
@@ -14,7 +14,9 @@ function CheckToken(req, res, next) {
     jwt.verify(token, secret); //valida o token do usuario, caso de erro ja pula pro catch
     next();
   } catch (error) {
-    return res.status(400).send(error);
+    return res
+      .status(400)
+      .send([{ error: error }, { msg: "pode ser Token Antigo" }]);
   }
 }
 
