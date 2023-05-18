@@ -40,7 +40,7 @@ class UserHandler {
         return { msg: "dados incorretos!" };
       }
     } catch (error) {
-      console.log(error);
+      return [{ msg: "Erro ", token: token }, error];
     }
   }
 
