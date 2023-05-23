@@ -1,6 +1,4 @@
 const { Feed: FeedModel } = require("../model/FeedModel");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 class FeedHandler {
